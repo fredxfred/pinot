@@ -121,7 +121,11 @@ public class CondensedAnomalyTimelinesView {
           (startTime + bucketMillis) * minBucketUnit + timestampOffset);
       anomalyTimelinesView.addTimeBuckets(timeBucket);
       anomalyTimelinesView.addBaselineValues(baselineValues.get(i));
-      anomalyTimelinesView.addCurrentValues(currentValues.get(i));
+      if (i < currentValues.size()) {
+        anomalyTimelinesView.addCurrentValues(currentValues.get(i));
+      } else {
+        anomalyTimelinesView.addCurrentValues(Double.NaN);
+      }
     }
     for (Map.Entry<String, String> entry : summary.entrySet()) {
       anomalyTimelinesView.addSummary(entry.getKey(), entry.getValue());
